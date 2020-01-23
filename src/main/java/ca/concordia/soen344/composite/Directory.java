@@ -1,5 +1,6 @@
 package ca.concordia.soen344.composite;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +49,10 @@ public class Directory extends AbstractFile {
             count += file.countFiles();
         }
         return count;
+    }
+
+    @Override
+    public DefaultMutableTreeNode createNode() {
+        throw new UnsupportedOperationException();
     }
 }

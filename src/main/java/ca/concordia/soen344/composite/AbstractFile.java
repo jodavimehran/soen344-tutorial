@@ -1,5 +1,7 @@
 package ca.concordia.soen344.composite;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
 public abstract class AbstractFile {
     private int level;
     private String name;
@@ -30,4 +32,6 @@ public abstract class AbstractFile {
     public abstract long size();
 
     public abstract int countFiles();
+
+    public abstract DefaultMutableTreeNode createNode();
 }
