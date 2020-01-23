@@ -20,7 +20,15 @@ public class CompositePatternClient {
             System.out.println(topDir.ls());
             System.out.println(topDir.size());
             System.out.println(topDir.countFiles());
-            
+
+            JTree tree = new JTree(createSampleTreeNode());
+            JScrollPane scrollPane = new JScrollPane(tree);
+
+            JFrame frame = new JFrame();
+            frame.getContentPane().add(scrollPane);
+            frame.pack();
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
     }
 
