@@ -21,7 +21,7 @@ public class CompositePatternClient {
             System.out.println(topDir.size());
             System.out.println(topDir.countFiles());
 
-            JTree tree = new JTree(createSampleTreeNode());
+            JTree tree = new JTree(topDir.createNode());
             JScrollPane scrollPane = new JScrollPane(tree);
 
             JFrame frame = new JFrame();
