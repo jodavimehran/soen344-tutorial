@@ -53,6 +53,10 @@ public class Directory extends AbstractFile {
 
     @Override
     public DefaultMutableTreeNode createNode() {
-        throw new UnsupportedOperationException();
+        DefaultMutableTreeNode parentNode = new DefaultMutableTreeNode(getName());
+        for (AbstractFile content : contents) {
+            parentNode.add(content.createNode());
+        }
+        return parentNode;
     }
 }
