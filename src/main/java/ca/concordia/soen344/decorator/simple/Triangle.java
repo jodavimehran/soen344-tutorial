@@ -3,6 +3,10 @@ package ca.concordia.soen344.decorator.simple;
 import java.awt.*;
 
 public class Triangle {
+
+    /**
+     * Triangle points
+     */
     protected Point p1, p2, p3;
 
     /**
@@ -14,6 +18,17 @@ public class Triangle {
         p1 = new Point(0, triangleHeight);
         p2 = new Point(side / 2, 0);
         p3 = new Point(side, triangleHeight);
+    }
+
+    /**
+     * @param p1 first point
+     * @param p2 second point
+     * @param p3 third point
+     */
+    public Triangle(Point p1, Point p2, Point p3) {
+        this.p1 = p1;
+        this.p2 = p2;
+        this.p3 = p3;
     }
 
     /**
