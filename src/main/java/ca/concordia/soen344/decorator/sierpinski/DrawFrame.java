@@ -1,4 +1,4 @@
-package ca.concordia.soen344.decorator.simple;
+package ca.concordia.soen344.decorator.sierpinski;
 
 import javax.swing.*;
 
