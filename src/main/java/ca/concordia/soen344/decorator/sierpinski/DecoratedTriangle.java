@@ -6,10 +6,27 @@ public class DecoratedTriangle extends Triangle {
 
     private Triangle original;
 
-    public DecoratedTriangle(Triangle original) {
-        super(midpoint(original.p1, original.p2),
-                midpoint(original.p2, original.p3),
-                midpoint(original.p1, original.p3));
+    public DecoratedTriangle(Triangle original, Part part) {
+        Point p4 = midpoint(original.p1, original.p2);
+        Point p5 = midpoint(original.p2, original.p3);
+        Point p6 = midpoint(original.p1, original.p3);
+        switch (part) {
+            case TOP:
+                p1 = p4;
+                p2 = original.p2;
+                p3 = p5;
+                break;
+            case LEFT:
+                p1 = original.p1;
+                p2 = p4;
+                p3 = p6;
+                break;
+            case RIGHT:
+                p1 = p6;
+                p2 = p5;
+                p3 = original.p3;
+                break;
+        }
         this.original = original;
     }
 
@@ -21,5 +38,11 @@ public class DecoratedTriangle extends Triangle {
     public void draw(Graphics g) {
         original.draw(g);
         super.draw(g);
+    }
+
+    public enum Part {
+        TOP,
+        RIGHT,
+        LEFT
     }
 }

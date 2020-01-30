@@ -9,6 +9,9 @@ public class Triangle {
      */
     protected Point p1, p2, p3;
 
+    protected Triangle() {
+    }
+
     /**
      * @param side the size of a side of the triangle
      */
