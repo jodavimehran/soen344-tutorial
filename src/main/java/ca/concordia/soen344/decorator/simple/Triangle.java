@@ -16,4 +16,14 @@ public class Triangle {
         p3 = new Point(side, triangleHeight);
     }
 
+    /**
+     * @param g The graphics to draw this triangle
+     */
+    public void draw(Graphics g) {
+        Polygon p = new Polygon();
+        p.addPoint(p1.x, p1.y);
+        p.addPoint(p2.x, p2.y);
+        p.addPoint(p3.x, p3.y);
+        g.drawPolygon(p);
+    }
 }
