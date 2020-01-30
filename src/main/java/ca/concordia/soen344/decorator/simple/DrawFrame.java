@@ -12,7 +12,13 @@ public class DrawFrame extends JFrame {
         this.setSize(SIZE, SIZE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        JPanel panel = new DrawPanel(new Triangle(SIZE-20));
+        Triangle original = new Triangle(SIZE - 10);
+        DecoratedTriangle child = new DecoratedTriangle(original);
+        for (int i = 0; i < 5; i++) {
+            child = new DecoratedTriangle(child);
+        }
+
+        JPanel panel = new DrawPanel(child);
         this.getContentPane().add(panel);
     }
 
