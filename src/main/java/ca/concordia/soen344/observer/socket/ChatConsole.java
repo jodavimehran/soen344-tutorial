@@ -6,13 +6,21 @@ import java.io.InputStreamReader;
 
 public class ChatConsole implements Runnable {
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	private final ChatAccess chatAccess;
 
-    @Override
+	public ChatConsole(ChatAccess chatAccess) {
+		this.chatAccess = chatAccess;
+	}
+
+	@Override
     public void run() {
         try {
             while (true) {
                 String input = br.readLine();
-                System.out.println("echo: " + input);
+				chatAccess.send(input);
+				if ("/quit".equals(input)) {
+					System.exit(0);
+				}
             }
         } catch (IOException e) {
             e.printStackTrace();
