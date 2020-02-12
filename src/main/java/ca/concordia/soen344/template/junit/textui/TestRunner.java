@@ -249,7 +249,7 @@ public class TestRunner implements TestListener {
     public Test getTest(String testCase) {
         Class testClass = null;
         try {
-            testClass = Class.forName(testCase);
+            testClass = loadSuiteClass(testCase);
         } catch (Exception e) {
             System.out.println("Suite class \"" + testCase + "\" not found");
             System.exit(-1);
@@ -271,5 +271,9 @@ public class TestRunner implements TestListener {
             return null;
         }
         return suite;
+    }
+
+    protected Class loadSuiteClass(String suiteClassName) throws ClassNotFoundException {
+        return Class.forName(suiteClassName);
     }
 }
