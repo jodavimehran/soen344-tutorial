@@ -253,6 +253,7 @@ public class TestRunner implements TestListener {
         } catch (Exception e) {
             System.out.println("Suite class \"" + testCase + "\" not found");
             System.exit(-1);
+            return null;
         }
         Test suite = null;
         Method suiteMethod = null;
@@ -268,6 +269,7 @@ public class TestRunner implements TestListener {
         } catch (Exception e) {
             System.out.println("Could not invoke the suite() method");
             System.exit(-1);
+            return null;
         }
         return suite;
     }
