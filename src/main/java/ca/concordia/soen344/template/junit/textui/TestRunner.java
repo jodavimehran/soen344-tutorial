@@ -255,7 +255,6 @@ public class TestRunner implements TestListener {
             System.exit(-1);
             return null;
         }
-        Test suite = null;
         Method suiteMethod = null;
         try {
             suiteMethod = testClass.getMethod("suite");
@@ -263,7 +262,7 @@ public class TestRunner implements TestListener {
             // try to extract a test suite automatically
             return new TestSuite(testClass);
         }
-
+        Test suite = null;
         try {
             suite = (Test) suiteMethod.invoke(null, new Class[0]); // static method
         } catch (Exception e) {
