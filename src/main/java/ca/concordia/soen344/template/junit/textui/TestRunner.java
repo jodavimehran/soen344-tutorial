@@ -261,7 +261,7 @@ public class TestRunner implements TestListener {
             suiteMethod = testClass.getMethod("suite");
         } catch (Exception e) {
             // try to extract a test suite automatically
-            suite = new TestSuite(testClass);
+            return new TestSuite(testClass);
         }
 
         try {
