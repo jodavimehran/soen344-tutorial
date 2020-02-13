@@ -26,6 +26,7 @@ import java.util.Enumeration;
  * summary at the end.
  */
 public class TestRunner implements TestListener {
+    private static final String SUITE_METHODNAME = "suite";
     PrintStream fWriter;
 
     /**
@@ -257,7 +258,7 @@ public class TestRunner implements TestListener {
         }
         Method suiteMethod = null;
         try {
-            suiteMethod = testClass.getMethod("suite");
+            suiteMethod = testClass.getMethod(SUITE_METHODNAME);
         } catch (Exception e) {
             // try to extract a test suite automatically
             return new TestSuite(testClass);
