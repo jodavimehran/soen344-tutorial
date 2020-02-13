@@ -477,7 +477,7 @@ public class TestRunner extends Object implements TestListener, DocumentListener
      */
     protected Test getTest(String suiteClassName) {
         if (suiteClassName.length() <= 0) {
-            fStatusLine.setText("");
+            clearStatus();
             runFailed("Invalid class name");
             return null;
         }
@@ -495,7 +495,7 @@ public class TestRunner extends Object implements TestListener, DocumentListener
             suiteMethod = testClass.getMethod(SUITE_METHODNAME);
         } catch (Exception e) {
             // try to extract a test suite automatically
-            fStatusLine.setText("");
+            clearStatus();
             return new TestSuite(testClass);
         }
 
@@ -506,8 +506,12 @@ public class TestRunner extends Object implements TestListener, DocumentListener
             runFailed("Could not invoke the suite() method");
             return null;
         }
-        fStatusLine.setText("");
+        clearStatus();
         return test;
+    }
+
+    private void clearStatus() {
+        fStatusLine.setText("");
     }
 
     public void insertUpdate(DocumentEvent event) {
@@ -836,7 +840,7 @@ public class TestRunner extends Object implements TestListener, DocumentListener
 
     public void textChanged() {
         fRun.setEnabled(getSuiteText().length() > 0);
-        fStatusLine.setText("");
+        clearStatus();
     }
 
     static class FailureListCellRenderer extends DefaultListCellRenderer {
