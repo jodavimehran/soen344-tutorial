@@ -250,8 +250,7 @@ public class TestRunner implements TestListener {
         try {
             testClass = loadSuiteClass(testCase);
         } catch (Exception e) {
-            String message = "Suite class \"" + testCase + "\" not found";
-            runFailed(message);
+            runFailed("Suite class \"" + testCase + "\" not found");
             return null;
         }
         Method suiteMethod = null;
@@ -265,8 +264,7 @@ public class TestRunner implements TestListener {
         try {
             suite = (Test) suiteMethod.invoke(null, new Class[0]); // static method
         } catch (Exception e) {
-            String message = "Could not invoke the suite() method";
-            runFailed(message);
+            runFailed("Could not invoke the suite() method");
             return null;
         }
         return suite;
