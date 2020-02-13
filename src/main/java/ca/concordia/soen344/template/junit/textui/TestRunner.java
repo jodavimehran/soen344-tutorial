@@ -225,15 +225,13 @@ public class TestRunner implements TestListener {
                 testCase = args[i];
         }
         if (testCase.equals("")) {
-            System.out.println("Usage: TestRunner [-wait] testCaseName, where name is the name of the TestCase class");
-            System.exit(-1);
+            runFailed("Usage: TestRunner [-wait] testCaseName, where name is the name of the TestCase class");
         }
         try {
             Test test = getTest(testCase);
             doRun(test, wait);
         } catch (Exception e) {
-            System.out.println("Could not create and run test suite");
-            System.exit(-1);
+            runFailed("Could not create and run test suite");
         }
     }
 
@@ -253,8 +251,7 @@ public class TestRunner implements TestListener {
             testClass = loadSuiteClass(testCase);
         } catch (Exception e) {
             String message = "Suite class \"" + testCase + "\" not found";
-            System.out.println(message);
-            System.exit(-1);
+            runFailed(message);
             return null;
         }
         Method suiteMethod = null;
@@ -269,14 +266,20 @@ public class TestRunner implements TestListener {
             suite = (Test) suiteMethod.invoke(null, new Class[0]); // static method
         } catch (Exception e) {
             String message = "Could not invoke the suite() method";
-            System.out.println(message);
-            System.exit(-1);
+            runFailed(message);
             return null;
         }
         return suite;
     }
 
+    private void runFailed(String message) {
+        System.out.println(message);
+        System.exit(-1);
+    }
+
     protected Class loadSuiteClass(String suiteClassName) throws ClassNotFoundException {
         return Class.forName(suiteClassName);
     }
+
+
 }
