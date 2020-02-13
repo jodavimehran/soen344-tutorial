@@ -18,7 +18,6 @@ import java.awt.event.*;
 import java.awt.image.ImageProducer;
 import java.io.*;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.net.URL;
 
 
@@ -33,7 +32,6 @@ import java.net.URL;
  */
 public class TestRunner extends BaseTestRunner implements TestListener, DocumentListener {
     private static final int GAP = 4;
-    private static final String SUITE_METHODNAME = "suite";
     private static Font PLAIN_FONT = new Font("dialog", Font.PLAIN, 12);
     private static Font BOLD_FONT = new Font("dialog", Font.BOLD, 12);
     protected JFrame fFrame;
@@ -472,46 +470,9 @@ public class TestRunner extends BaseTestRunner implements TestListener, Document
         return field.getText();
     }
 
-    /**
-     * Loads the named test suite and returns it. Errors during loading
-     * are reported on the status line.
-     */
-    protected Test getTest(String suiteClassName) {
-        if (suiteClassName.length() <= 0) {
-            clearStatus();
-            runFailed("Invalid class name");
-            return null;
-        }
 
-        Class testClass = null;
-        try {
-            testClass = loadSuiteClass(suiteClassName);
-        } catch (Exception e) {
-            runFailed("Class \"" + suiteClassName + "\" not found");
-            return null;
-        }
-
-        Method suiteMethod = null;
-        try {
-            suiteMethod = testClass.getMethod(SUITE_METHODNAME);
-        } catch (Exception e) {
-            // try to extract a test suite automatically
-            clearStatus();
-            return new TestSuite(testClass);
-        }
-
-        Test test = null;
-        try {
-            test = (Test) suiteMethod.invoke(null, new Class[0]); // static method
-        } catch (Exception e) {
-            runFailed("Could not invoke the suite() method");
-            return null;
-        }
-        clearStatus();
-        return test;
-    }
-
-    private void clearStatus() {
+    @Override
+    protected void clearStatus() {
         fStatusLine.setText("");
     }
 
@@ -558,6 +519,7 @@ public class TestRunner extends BaseTestRunner implements TestListener, Document
         return new File(home, ".junit");
     }
 
+    @Override
     protected Class loadSuiteClass(String suiteClassName) throws ClassNotFoundException {
         return fTestLoader.load(suiteClassName);
     }

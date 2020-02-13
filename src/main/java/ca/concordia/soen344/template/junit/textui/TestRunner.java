@@ -27,7 +27,6 @@ import java.util.Enumeration;
  * summary at the end.
  */
 public class TestRunner extends BaseTestRunner implements TestListener {
-    private static final String SUITE_METHODNAME = "suite";
     PrintStream fWriter;
 
     /**
@@ -243,50 +242,19 @@ public class TestRunner extends BaseTestRunner implements TestListener {
         return fWriter;
     }
 
-    public Test getTest(String suiteClassName) {
-        if (suiteClassName.length() <= 0) {
-            clearStatus();
-            runFailed("Invalid class name");
-            return null;
-        }
-
-        Class testClass = null;
-        try {
-            testClass = loadSuiteClass(suiteClassName);
-        } catch (Exception e) {
-            runFailed("Class \"" + suiteClassName + "\" not found");
-            return null;
-        }
-        Method suiteMethod = null;
-        try {
-            suiteMethod = testClass.getMethod(SUITE_METHODNAME);
-        } catch (Exception e) {
-            // try to extract a test suite automatically
-            clearStatus();
-            return new TestSuite(testClass);
-        }
-
-        Test test = null;
-        try {
-            test = (Test) suiteMethod.invoke(null, new Class[0]); // static method
-        } catch (Exception e) {
-            runFailed("Could not invoke the suite() method");
-            return null;
-        }
-        clearStatus();
-        return test;
-    }
-
+    @Override
     protected void runFailed(String message) {
         System.out.println(message);
         System.exit(-1);
     }
 
+    @Override
     protected Class loadSuiteClass(String suiteClassName) throws ClassNotFoundException {
         return Class.forName(suiteClassName);
     }
 
-    private void clearStatus() {
+    @Override
+    protected void clearStatus() {
 
     }
 
