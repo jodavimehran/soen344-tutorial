@@ -224,9 +224,6 @@ public class TestRunner implements TestListener {
             else
                 testCase = args[i];
         }
-        if (testCase.equals("")) {
-            runFailed("Usage: TestRunner [-wait] testCaseName, where name is the name of the TestCase class");
-        }
         try {
             Test test = getTest(testCase);
             doRun(test, wait);
@@ -246,6 +243,12 @@ public class TestRunner implements TestListener {
     }
 
     public Test getTest(String testCase) {
+        if (testCase.equals("")) {
+            clearStatus();
+            runFailed("Usage: TestRunner [-wait] testCaseName, where name is the name of the TestCase class");
+            return null;
+        }
+
         Class testClass = null;
         try {
             testClass = loadSuiteClass(testCase);
@@ -258,6 +261,7 @@ public class TestRunner implements TestListener {
             suiteMethod = testClass.getMethod(SUITE_METHODNAME);
         } catch (Exception e) {
             // try to extract a test suite automatically
+            clearStatus();
             return new TestSuite(testClass);
         }
         Test suite = null;
@@ -267,6 +271,7 @@ public class TestRunner implements TestListener {
             runFailed("Could not invoke the suite() method");
             return null;
         }
+        clearStatus();
         return suite;
     }
 
@@ -279,5 +284,8 @@ public class TestRunner implements TestListener {
         return Class.forName(suiteClassName);
     }
 
+    private void clearStatus() {
+
+    }
 
 }
