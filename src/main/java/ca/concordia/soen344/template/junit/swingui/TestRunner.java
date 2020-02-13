@@ -1,6 +1,7 @@
 package ca.concordia.soen344.template.junit.swingui;
 
 import ca.concordia.soen344.template.junit.framework.*;
+import ca.concordia.soen344.template.junit.runner.BaseTestRunner;
 import ca.concordia.soen344.template.junit.util.StandardTestSuiteLoader;
 import ca.concordia.soen344.template.junit.util.StringUtil;
 import ca.concordia.soen344.template.junit.util.TestSuiteLoader;
@@ -30,7 +31,7 @@ import java.net.URL;
  * </pre>
  * TestRunner takes as an optional argument the name of the testcase class to be run.
  */
-public class TestRunner extends Object implements TestListener, DocumentListener {
+public class TestRunner extends BaseTestRunner implements TestListener, DocumentListener {
     private static final int GAP = 4;
     private static final String SUITE_METHODNAME = "suite";
     private static Font PLAIN_FONT = new Font("dialog", Font.PLAIN, 12);
@@ -638,7 +639,7 @@ public class TestRunner extends Object implements TestListener, DocumentListener
         runSuite();
     }
 
-    private void runFailed(String message) {
+    protected void runFailed(String message) {
         showStatus(message);
         fRun.setText("Run");
         fRunner = null;

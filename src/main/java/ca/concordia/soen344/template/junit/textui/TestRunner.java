@@ -2,6 +2,7 @@ package ca.concordia.soen344.template.junit.textui;
 
 
 import ca.concordia.soen344.template.junit.framework.*;
+import ca.concordia.soen344.template.junit.runner.BaseTestRunner;
 import ca.concordia.soen344.template.junit.util.StringUtil;
 import ca.concordia.soen344.template.junit.util.Version;
 
@@ -25,7 +26,7 @@ import java.util.Enumeration;
  * TestRunner prints a trace as the tests are executed followed by a
  * summary at the end.
  */
-public class TestRunner implements TestListener {
+public class TestRunner extends BaseTestRunner implements TestListener {
     private static final String SUITE_METHODNAME = "suite";
     PrintStream fWriter;
 
@@ -276,7 +277,7 @@ public class TestRunner implements TestListener {
         return test;
     }
 
-    private void runFailed(String message) {
+    protected void runFailed(String message) {
         System.out.println(message);
         System.exit(-1);
     }
