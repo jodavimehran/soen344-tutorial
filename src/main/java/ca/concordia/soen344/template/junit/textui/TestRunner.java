@@ -242,8 +242,8 @@ public class TestRunner implements TestListener {
         return fWriter;
     }
 
-    public Test getTest(String testCase) {
-        if (testCase.equals("")) {
+    public Test getTest(String suiteClassName) {
+        if (suiteClassName.equals("")) {
             clearStatus();
             runFailed("Usage: TestRunner [-wait] testCaseName, where name is the name of the TestCase class");
             return null;
@@ -251,9 +251,9 @@ public class TestRunner implements TestListener {
 
         Class testClass = null;
         try {
-            testClass = loadSuiteClass(testCase);
+            testClass = loadSuiteClass(suiteClassName);
         } catch (Exception e) {
-            runFailed("Suite class \"" + testCase + "\" not found");
+            runFailed("Suite class \"" + suiteClassName + "\" not found");
             return null;
         }
         Method suiteMethod = null;
@@ -264,15 +264,15 @@ public class TestRunner implements TestListener {
             clearStatus();
             return new TestSuite(testClass);
         }
-        Test suite = null;
+        Test test = null;
         try {
-            suite = (Test) suiteMethod.invoke(null, new Class[0]); // static method
+            test = (Test) suiteMethod.invoke(null, new Class[0]); // static method
         } catch (Exception e) {
-            runFailed("Could not invoke the suite() method");
+            runFailed("Could not invoke the test() method");
             return null;
         }
         clearStatus();
-        return suite;
+        return test;
     }
 
     private void runFailed(String message) {
